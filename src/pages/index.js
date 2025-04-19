@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginSuccess, loginFailure, setLoading } from "../redux/slices/authSlice";
 import styles from "@/styles/Login.module.css"; // Adjust path as needed
 import Image from "next/image";
-
+import logo from "../../public/images/logo.png"
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -56,7 +56,7 @@ export default function Login() {
       <div className={styles.rightPanel}>
         <div className={styles.formContainer}>
           <div className={styles.logoContainer}>
-            <Image src="/logo.png" alt="Meal Mingle Logo" width={50} height={50} className={styles.logo} />
+            <Image src={logo} alt="Meal Mingle Logo" width={50} height={50} className={styles.logo} />
             <h2>Meal Mingle</h2>
           </div>
 
