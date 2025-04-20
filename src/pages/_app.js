@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter();
-  const noLayoutRoutes = ["/"]; // Don't show Layout on login page
+  const noLayoutRoutes = ["/","/signup"]; // Don't show Layout on login page
 
   const shouldRenderLayout = !noLayoutRoutes.includes(router.pathname);
 

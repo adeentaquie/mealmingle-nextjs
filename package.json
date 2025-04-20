@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.7.0",
+    "bcryptjs": "^3.0.2",
+    "mongoose": "^8.13.2",
+    "mongoose-sequence": "^6.0.1",
     "next": "15.3.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

@@ -5,6 +5,7 @@ import Image from "next/image";
 import classes from "./main-header.module.css";
 import NavLink from "./NavLink";
 import MainHeaderBackground from "./MainHeaderBackground";
+import logo from "../../../../public/images/logo.png"
 
 export default function MainHeader() {
   const { userId } = useSelector((state) => state.auth);
@@ -24,7 +25,7 @@ export default function MainHeader() {
       <MainHeaderBackground />
       <header className={classes.header}>
         <Link className={classes.logo} href="/home">
-          <Image src="/logo.png" alt="logo image" width={80} height={80} />
+          <Image src={logo} alt="logo image" width={80} height={80} />
           MEAL MINGLE
         </Link>
 
