@@ -1,3 +1,21 @@
+.wrapper {
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  background: linear-gradient(135deg, rgba(25, 25, 30, 0.95), rgba(15, 15, 20, 0.98));
+}
+
+.wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 20% 30%, rgba(249, 87, 42, 0.08) 0%, transparent 50%),
+              radial-gradient(circle at 80% 70%, rgba(255, 201, 5, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
 
 .header {
   display: flex;
@@ -5,20 +23,65 @@
   margin: 3rem auto;
   width: 90%;
   max-width: 75rem;
+  position: relative;
+  padding: 2rem;
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(35, 35, 40, 0.7), rgba(25, 25, 30, 0.9));
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #f9572a, #ffc905, #f9572a);
+  background-size: 200% 100%;
+  animation: gradientMove 8s ease infinite;
 }
 
 .slideshow {
   width: 40rem;
   height: 25rem;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  position: relative;
+  transform: perspective(1000px) rotateY(-2deg);
+  transition: transform 0.5s ease;
+}
+
+.slideshow:hover {
+  transform: perspective(1000px) rotateY(0deg);
+}
+
+.slideshow::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(249, 87, 42, 0.1), transparent 50%);
+  pointer-events: none;
 }
 
 .hero {
   color: #ddd6cb;
   font-size: 1.5rem;
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
 }
 
 .hero h1 {
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: bold;
   font-family: 'Montserrat', sans-serif;
   letter-spacing: 0.15rem;
@@ -27,28 +90,72 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  margin-bottom: 1.5rem;
+  position: relative;
+  text-shadow: 0 2px 10px rgba(249, 87, 42, 0.3);
+}
+
+.hero h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #f9572a, #ffc905);
+  border-radius: 2px;
+}
+
+.hero p {
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  max-width: 90%;
 }
 
 .cta {
   font-size: 1.5rem;
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
 }
 
 .cta a {
   display: inline-block;
   margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
   background: linear-gradient(90deg, #f9572a, #ff9b05);
   color: #ffffff;
   font-weight: bold;
   text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(249, 87, 42, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.7s ease;
+}
+
+.cta a:hover::before {
+  left: 100%;
 }
 
 .cta a:hover,
 .cta a:active {
   background: linear-gradient(90deg, #fd4715, #f9b241);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(249, 87, 42, 0.4);
 }
 
 .cta a:first-child {
@@ -56,12 +163,17 @@
   font-weight: normal;
   color: #ff9b05;
   padding-left: 0;
+  box-shadow: none;
+  border: 2px solid #ff9b05;
+  padding: 0.7rem 1.5rem;
 }
 
 .cta a:first-child:hover,
 .cta a:first-child:active {
-  background: transparent;
+  background: rgba(255, 155, 5, 0.1);
   color: #f9b241;
+  border-color: #f9b241;
+  transform: translateY(-3px);
 }
 
 .section {
@@ -69,8 +181,146 @@
   flex-direction: column;
   color: #ddd6cb;
   font-size: 1.5rem;
-  max-width: 50rem;
+  max-width: 55rem;
   width: 90%;
-  margin: 2rem auto;
+  margin: 4rem auto;
   text-align: center;
+  padding: 3rem 2rem;
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(35, 35, 40, 0.7), rgba(25, 25, 30, 0.9));
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+  animation: slideUp 0.8s ease-out;
+}
+
+.section:nth-child(odd)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #f9572a, #ffc905);
+}
+
+.section:nth-child(even)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #ffc905, #f9572a);
+}
+
+.section h2 {
+  font-size: 2.5rem;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 2rem;
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(90deg, #f9572a, #ffc905);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #f9572a, #ffc905);
+  border-radius: 2px;
+}
+
+.section p {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1100px) {
+  .header {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .slideshow {
+    width: 100%;
+    max-width: 40rem;
+    transform: none;
+  }
+  
+  .hero {
+    text-align: center;
+    align-items: center;
+  }
+  
+  .hero h1::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .cta {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    padding: 1.5rem;
+  }
+  
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+  
+  .hero p {
+    font-size: 1.3rem;
+  }
+  
+  .cta {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  
+  .cta a {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .cta a:first-child {
+    padding-left: 1.5rem;
+  }
+  
+  .section {
+    padding: 2rem 1.5rem;
+  }
+  
+  .section h2 {
+    font-size: 2rem;
+  }
 }

@@ -38,8 +38,8 @@ export default function ImageSlideshow() {
               width={800}
               height={400}
               className={`${classes.image} ${classes.active}`}
-              priority={true}
-            />
+              priority={index === 0}
+              />
           )}
         </div>
       ))}
