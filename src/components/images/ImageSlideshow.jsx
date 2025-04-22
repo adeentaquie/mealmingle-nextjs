@@ -6,13 +6,15 @@ import Image from "next/image";
 import classes from "./ImageSlideShow.module.css";
 
 const images = [
-  { src: "/images/burger.jpg", alt: "A delicious, juicy burger" },
-  { src: "/images/curry.jpg", alt: "A delicious, spicy curry" },
-  { src: "/images/dumplings.jpg", alt: "Steamed dumplings" },
-  { src: "/images/macncheese.jpg", alt: "Mac and cheese" },
-  { src: "/images/pizza.jpg", alt: "A delicious pizza" },
-  { src: "/images/schnitzel.jpg", alt: "A delicious schnitzel" },
-  { src: "/images/tomato-salad.jpg", alt: "A delicious tomato salad" },
+ 
+  { src: "/images/strawberrysmoothie.jpg", alt: "A delicious schnitzel" },
+  { src: "/images/homemadesubwaysub.jpg", alt: "A delicious tomato salad" },
+  { src: "/images/nutellacakeslice.jpg", alt: "A delicious, juicy burger" },
+  { src: "/images/pasta.jpg", alt: "A delicious, juicy burger" },
+  { src: "/images/potatowedges.jpg", alt: "A delicious, juicy burger" },
+  { src: "/images/redvelvetcake.jpg", alt: "A delicious, juicy burger" },
+  { src: "/images/smokeyhouse.jpg", alt: "A delicious, juicy burger" },
+
 ];
 
 export default function ImageSlideshow() {
@@ -35,7 +37,7 @@ export default function ImageSlideshow() {
             <Image
               src={image.src}
               alt={image.alt}
-              width={800}
+              width={600}
               height={400}
               className={`${classes.image} ${classes.active}`}
               priority={index === 0}
