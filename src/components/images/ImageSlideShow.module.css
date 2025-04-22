@@ -1,12 +1,3 @@
-.container {
-  position: relative;
-  padding: 2rem;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  border-radius: 12px;
-  margin: 2rem auto;
-  max-width: 900px;
-}
-
 .slideshow {
   position: relative;
   width: 100%;
@@ -16,51 +7,25 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-.image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.slideWrapper {
   position: absolute;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.image {
+  object-fit: cover;
+  transition: all 1s ease-in-out;
   opacity: 0;
   transform: scale(1.1) translateX(-1rem) rotate(-5deg);
-  transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .active {
-  z-index: 1;
   opacity: 1;
   transform: scale(1) translateX(0) rotate(0);
-}
-
-.title {
-  text-align: center;
-  color: #333;
-  margin-bottom: 1.5rem;
-  font-size: 2rem;
-  font-weight: 600;
-}
-
-.indicators {
-  display: flex;
-  justify-content: center;
-  margin-top: 1.5rem;
-  gap: 0.5rem;
-}
-
-.indicator {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.indicatorActive {
-  background-color: #333;
-  transform: scale(1.2);
+  z-index: 1;
 }
 
 .caption {
@@ -73,20 +38,18 @@
   padding: 1rem;
   font-size: 1.2rem;
   transform: translateY(100%);
-  transition: transform 0.5s ease;
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
   z-index: 2;
 }
 
-.active ~ .caption {
+.captionActive {
   transform: translateY(0);
+  opacity: 1;
 }
 
 @media (max-width: 768px) {
   .slideshow {
     height: 350px;
-  }
-
-  .title {
-    font-size: 1.5rem;
   }
 }
