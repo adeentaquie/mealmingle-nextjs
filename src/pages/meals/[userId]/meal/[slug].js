@@ -1,15 +1,36 @@
 import { useRouter } from "next/router";
-import dbConnect from "@/lib/dbConnect";
-import classes from "@/styles/MealDetailPage.module.css";
 import  MealDetails  from "@/components/Meals/MealDetail/MealDetails";
 import Comments from "@/components/Meals/MealDetail/Comments";
 
 export async function getStaticPaths() {
-  return {
-    paths: [],
-    fallback: "blocking",
-  };
+  try {
+    const { default: dbConnect } = await import('@/lib/dbConnect');
+    const { default: Meal } = await import('@/models/mealModel');
+    await dbConnect();
+
+    // Fetch all meals (only slug and creatorId)
+    const meals = await Meal.find({}, 'slug creatorId').lean();
+
+    const paths = meals.map((meal) => ({
+      params: {
+        userId: String(meal.creatorId), // Make sure it's a string
+        slug: meal.slug,
+      },
+    }));
+
+    return {
+      paths,
+      fallback: "blocking",
+    };
+  } catch (error) {
+    console.error("Error in getStaticPaths:", error);
+    return {
+      paths: [],
+      fallback: false,
+    };
+  }
 }
+
 
 export async function getStaticProps(context) {
   const { userId, slug } = context.params;

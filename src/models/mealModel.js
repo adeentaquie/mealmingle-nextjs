@@ -19,6 +19,8 @@ const mealSchema = new mongoose.Schema(
     instructions: { type: String, required: true },
     creator: { type: String, required: true },
     creator_email: { type: String, required: true },
+    creatorId: { type: Number, required: true }, 
+
     comments: [commentSchema],
   },
   { timestamps: true }

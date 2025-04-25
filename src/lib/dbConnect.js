@@ -1,22 +1,33 @@
 // src/lib/dbConnect.js
 import mongoose from 'mongoose';
 
-let isConnected = false;
+const MONGODB_URI = process.env.MONGODB_URI;
 
+if (!MONGODB_URI) {
+  throw new Error(
+    "❌ MONGODB_URI environment variable not defined in .env.local"
+  );
+}
+
+// Global connection cache
+let cached = global.mongoose;
+
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
 
 export default async function dbConnect() {
-  if (isConnected) return;
-
-  try {
-    const db = await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-
-    isConnected = db.connections[0].readyState;
-    console.log("✅ MongoDB connected");
-  } catch (error) {
-    console.error("❌ MongoDB connection error:", error);
-    throw error;
+  if (cached.conn) {
+    return cached.conn;
   }
+
+  if (!cached.promise) {
+    cached.promise = mongoose.connect(MONGODB_URI).then((mongoose) => {
+      console.log("✅ MongoDB connected");
+      return mongoose;
+    });
+  }
+  
+  cached.conn = await cached.promise;
+  return cached.conn;
 }

@@ -53,6 +53,8 @@ export default async function handler(req, res) {
       instructions,
       creator: name,
       creator_email: email,
+      creatorId: numericUserId,    // <-- THIS IS HOW YOU SAVE IT
+
     });
 
     await newMeal.save();
