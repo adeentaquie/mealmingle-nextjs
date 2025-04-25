@@ -5,6 +5,7 @@ import { loginSuccess, loginFailure, setLoading } from "../redux/slices/authSlic
 import styles from "@/styles/Login.module.css"; // Adjust path as needed
 import Image from "next/image";
 import logo from "../../public/images/logo.png"
+import Link from "next/link";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -108,10 +109,10 @@ export default function Login() {
           </div>
 
           <p className={styles.signupText}>
-            Don't have an account?{" "}
-            <a href="/signup" className={styles.signupLink}>
+            Dont have an account?{" "}
+            <Link href="/signup" className={styles.signupLink}>
               Sign up
-            </a>
+            </Link>
           </p>
         </div>
       </div>

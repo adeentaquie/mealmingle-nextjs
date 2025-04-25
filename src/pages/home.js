@@ -34,7 +34,7 @@ export default function HomePage() {
           <h2>How it works</h2>
           <p>
             Meal Mingle is a platform for foodies to share their favorite
-            recipes with the world. It's a place to discover new dishes, and to
+            recipes with the world. It is a place to discover new dishes, and to
             connect with other food lovers.
           </p>
           <p>
@@ -47,7 +47,7 @@ export default function HomePage() {
           <h2>Why Meal Mingle?</h2>
           <p>
             Meal Mingle is a platform for foodies to share their favorite
-            recipes with the world. It's a place to discover new dishes, and to
+            recipes with the world. It is a place to discover new dishes, and to
             connect with other food lovers.
           </p>
           <p>

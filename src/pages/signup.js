@@ -10,6 +10,7 @@ import {
   selectSignup,
 } from "@/redux/slices/signupSlice"; // Adjust if your path is different
 import styles from "@/styles/SignUpForm.module.css";
+import Link from "next/link";
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
@@ -142,7 +143,7 @@ const SignupForm = () => {
         {errorMessage && <p className={styles.errorText}>{errorMessage}</p>}
 
         <div className={styles.loginLink}>
-          Already have an account? <a href="/">Log in</a>
+          Already have an account? <Link href="/">Log in</Link>
         </div>
       </div>
     </div>
