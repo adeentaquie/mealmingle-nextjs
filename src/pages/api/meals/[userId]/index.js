@@ -12,7 +12,7 @@ export default async function handler(req, res) {
       const meals = await Meal.find();  // Adjust this to match your schema
 
       if (!meals || meals.length === 0) {
-        return res.status(404).json({ message: 'No meals found for this user' });
+        return res.status(200).json([]); // ✅ Always return an array
       }
 
       res.status(200).json(meals);

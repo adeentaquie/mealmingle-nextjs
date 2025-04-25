@@ -2,6 +2,9 @@
 import mongoose from 'mongoose';
 
 let isConnected = false;
+import { setDefaultResultOrder } from 'dns';
+setDefaultResultOrder('ipv4first');
+
 
 export default async function dbConnect() {
   if (isConnected) return;

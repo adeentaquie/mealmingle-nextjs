@@ -15,7 +15,8 @@ const UserSchema = new mongoose.Schema(
 );
 
 // Use the plugin only once to auto-increment userId
-UserSchema.plugin(mongooseSequence, { inc_field: 'userId' });
-
+if (!mongoose.models.User) {
+  UserSchema.plugin(mongooseSequence, { inc_field: 'userId' });
+}
 // Export the model
 module.exports = mongoose.models.User || mongoose.model('User', UserSchema);

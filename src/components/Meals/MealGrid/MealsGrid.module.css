@@ -1,10 +1,61 @@
 .meals {
-    width: 90%;
-    max-width: 90rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-    grid-gap: 5rem;
-    margin: 2rem auto;
-    list-style: none;
-    padding: 0;
+  width: 90%;
+  max-width: 90rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr));
+  grid-gap: 3rem;
+  margin: 2rem auto;
+  list-style: none;
+  padding: 0;
+  perspective: 1000px;
+}
+
+.meals li {
+  animation: fadeInStaggered 0.6s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* Create staggered animation for each meal item */
+.meals li:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.meals li:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.meals li:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.meals li:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.meals li:nth-child(5) {
+  animation-delay: 0.5s;
+}
+.meals li:nth-child(6) {
+  animation-delay: 0.6s;
+}
+.meals li:nth-child(7) {
+  animation-delay: 0.7s;
+}
+.meals li:nth-child(8) {
+  animation-delay: 0.8s;
+}
+
+@keyframes fadeInStaggered {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .meals {
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    grid-gap: 2rem;
+  }
+}

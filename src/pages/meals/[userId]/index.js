@@ -8,7 +8,7 @@ export default function MealsPage({ meals, userId, error }) {
 
   return (
     <>
-      <header className={classes.header}>
+       <header className={classes.header}>
         <h1>
           Delicious meals, created <span className={classes.highlight}>by your community</span>
         </h1>
