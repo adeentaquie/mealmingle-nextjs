@@ -3,7 +3,7 @@ import Link from 'next/link';
 import classes from './MealItem.module.css'; // Adjusted className
 
 export default function MealItem({ title, slug, image, summary, creator, userid }) {
-    const mealUrl = `/meals/${userid}/${slug}`;  // Make sure `slug` and `userid` are defined
+    const mealUrl = `/meals/${userid}/meal/${slug}`;  // Make sure `slug` and `userid` are defined
 
     return (
       <article className={classes.meal}>

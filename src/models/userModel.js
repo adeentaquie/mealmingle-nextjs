@@ -1,7 +1,8 @@
-const mongoose = require('mongoose');
-const mongooseSequence = require('mongoose-sequence')(mongoose);  // Correctly import the plugin
+import mongoose from 'mongoose';
+import mongooseSequence from 'mongoose-sequence';
 
-// Define the User Schema
+const AutoIncrement = mongooseSequence(mongoose);
+
 const UserSchema = new mongoose.Schema(
   {
     userId: { type: Number, unique: true }, // Auto-incremented userId
@@ -14,9 +15,8 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Use the plugin only once to auto-increment userId
 if (!mongoose.models.User) {
-  UserSchema.plugin(mongooseSequence, { inc_field: 'userId' });
+  UserSchema.plugin(AutoIncrement, { inc_field: 'userId' });
 }
-// Export the model
-module.exports = mongoose.models.User || mongoose.model('User', UserSchema);
+
+export default mongoose.models.User || mongoose.model('User', UserSchema);
