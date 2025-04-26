@@ -1,15 +1,17 @@
 /* Dashboard.module.css */
 :root {
-  --primary-color: #3a7bd5;
-  --primary-light: #6fa3ef;
+  --primary-color: #4a6bff;
+  --primary-light: #6f8aff;
   --secondary-color: #00d2ff;
-  --accent-color: #4caf50;
-  --accent-hover: #45a049;
+  --accent-color: #ff6b6b;
+  --accent-hover: #ff5252;
+  --gradient-1: linear-gradient(135deg, #4a6bff, #00d2ff);
+  --gradient-2: linear-gradient(135deg, #ff6b6b, #ffb347);
   --background-color: #f8fafc;
   --card-background: #ffffff;
   --text-color: #2d3748;
   --text-light: #718096;
-  --border-radius: 12px;
+  --border-radius: 16px;
   --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
   --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
@@ -19,20 +21,40 @@
   margin: 0 auto;
   padding: 2.5rem;
   background-color: var(--background-color);
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(74, 107, 255, 0.05) 0%, transparent 20%),
+    radial-gradient(circle at 90% 80%, rgba(0, 210, 255, 0.05) 0%, transparent 20%),
+    radial-gradient(circle at 50% 50%, rgba(255, 107, 107, 0.03) 0%, transparent 30%);
+  background-attachment: fixed;
   min-height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: var(--text-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboardContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234a6bff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.5;
+  z-index: -1;
 }
 
 .dashboardContainer h1 {
   color: var(--primary-color);
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   margin-bottom: 2.5rem;
   text-align: center;
   position: relative;
-  padding-bottom: 0.8rem;
-  font-weight: 700;
+  padding-bottom: 1rem;
+  font-weight: 800;
   letter-spacing: -0.5px;
+  text-shadow: 0 2px 10px rgba(74, 107, 255, 0.1);
 }
 
 .dashboardContainer h1::after {
@@ -41,10 +63,11 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 120px;
-  height: 4px;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-  border-radius: 4px;
+  width: 150px;
+  height: 6px;
+  background: var(--gradient-1);
+  border-radius: 6px;
+  box-shadow: 0 2px 10px rgba(74, 107, 255, 0.2);
 }
 
 .dashboardInfo {
@@ -56,23 +79,58 @@
 
 .dashboardInfo h2 {
   color: var(--primary-color);
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   margin-bottom: 1.5rem;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--primary-light);
+  border-bottom: 3px solid transparent;
+  background-image: var(--gradient-1);
+  background-size: 100% 3px;
+  background-position: 0 bottom;
+  background-repeat: no-repeat;
 }
 
 .dashboardInfo > div {
   background-color: var(--card-background);
-  padding: 2rem;
+  padding: 2.5rem;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.dashboardInfo > div::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: var(--gradient-1);
+  z-index: 2;
+}
+
+.dashboardInfo > div:nth-child(2)::before {
+  background: var(--gradient-2);
+}
+
+.dashboardInfo > div::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: 
+    radial-gradient(circle at 100% 100%, rgba(74, 107, 255, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at 0% 0%, rgba(0, 210, 255, 0.03) 0%, transparent 30%);
+  z-index: -1;
 }
 
 .dashboardInfo > div:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
 .dashboardInfo ul {
@@ -84,74 +142,158 @@
 .dashboardInfo li {
   display: flex;
   align-items: center;
-  margin-bottom: 1.2rem;
-  padding: 1rem;
-  background-color: rgba(58, 123, 213, 0.05);
-  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  padding: 1.2rem;
+  background-color: rgba(74, 107, 255, 0.05);
+  border-radius: 12px;
+  transition: var(--transition);
+  border-left: 4px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboardInfo li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--gradient-1);
+  opacity: 0.7;
   transition: var(--transition);
 }
 
 .dashboardInfo li:hover {
-  background-color: rgba(58, 123, 213, 0.1);
+  background-color: rgba(74, 107, 255, 0.08);
   transform: translateX(5px);
 }
 
+.dashboardInfo li:hover::before {
+  width: 8px;
+}
+
 .dashboardInfo li img {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   object-fit: cover;
-  border-radius: 8px;
-  margin-right: 1rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin-right: 1.2rem;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transition: var(--transition);
+  border: 3px solid white;
 }
 
 .dashboardInfo li:hover img {
-  transform: scale(1.05);
+  transform: scale(1.05) rotate(2deg);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
 .dashboardInfo li a {
   color: var(--primary-color);
   text-decoration: none;
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   transition: var(--transition);
+  background-image: linear-gradient(transparent 80%, rgba(74, 107, 255, 0.2) 20%);
+  background-size: 0 100%;
+  background-repeat: no-repeat;
+  padding-bottom: 2px;
 }
 
 .dashboardInfo li a:hover {
-  color: var(--secondary-color);
+  color: var(--primary-color);
+  background-size: 100% 100%;
 }
 
 .dashboardInfo p {
   color: var(--text-light);
   font-style: italic;
   text-align: center;
-  padding: 1.5rem;
-  background-color: rgba(58, 123, 213, 0.05);
-  border-radius: 8px;
+  padding: 2rem;
+  background-color: rgba(74, 107, 255, 0.05);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
 }
 
-.dashboardInfo li strong {
-  color: var(--primary-color);
+.dashboardInfo p::before {
+  content: '"';
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  font-size: 4rem;
+  color: rgba(74, 107, 255, 0.1);
+  font-family: Georgia, serif;
 }
 
-.dashboardInfo li em {
+.commentsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.commentItem {
+  background: linear-gradient(to right, rgba(255, 107, 107, 0.05), rgba(255, 179, 71, 0.05)) !important;
+  border-left: 4px solid transparent !important;
+  position: relative;
+}
+
+.commentItem::before {
+  background: var(--gradient-2) !important;
+}
+
+.commentContent {
+  flex: 1;
+}
+
+.commentContent strong {
+  color: var(--accent-color);
   display: block;
-  margin-top: 0.5rem;
-  color: var(--text-light);
+  margin-bottom: 0.5rem;
+}
+
+.commentContent p {
+  background: none;
+  padding: 0.5rem 0;
+  text-align: left;
+  font-style: italic;
+  color: var(--text-color);
+  position: relative;
+  margin: 0;
+}
+
+.commentDate {
+  margin-top: 0.8rem;
   font-size: 0.85rem;
+  color: var(--text-light);
 }
 
 .errorText {
   background-color: #fff5f5;
   color: #e53e3e;
-  padding: 1.2rem;
+  padding: 1.5rem;
   border-radius: var(--border-radius);
   margin-top: 2rem;
   text-align: center;
-  border-left: 4px solid #e53e3e;
-  box-shadow: 0 4px 12px rgba(229, 62, 62, 0.1);
+  border-left: 6px solid #e53e3e;
+  box-shadow: 0 8px 16px rgba(229, 62, 62, 0.1);
   animation: fadeIn 0.5s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.errorText::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(45deg, rgba(229, 62, 62, 0.05) 25%, transparent 25%, transparent 50%, rgba(229, 62, 62, 0.05) 50%, rgba(229, 62, 62, 0.05) 75%, transparent 75%, transparent);
+  background-size: 20px 20px;
+  opacity: 0.3;
+  z-index: -1;
 }
 
 @keyframes fadeIn {
@@ -166,6 +308,7 @@
   align-items: center;
   height: 100vh;
   background-color: var(--background-color);
+  background-image: radial-gradient(circle at 50% 50%, rgba(74, 107, 255, 0.05) 0%, transparent 70%);
 }
 
 .loadingContainer > div {
@@ -175,12 +318,14 @@
 }
 
 .loadingSpinner {
-  width: 60px;
-  height: 60px;
-  border: 5px solid rgba(58, 123, 213, 0.2);
+  width: 70px;
+  height: 70px;
+  border: 6px solid rgba(74, 107, 255, 0.1);
   border-radius: 50%;
   border-top-color: var(--primary-color);
-  animation: spin 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+  border-left-color: var(--secondary-color);
+  animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+  box-shadow: 0 0 30px rgba(74, 107, 255, 0.1);
 }
 
 @keyframes spin {
@@ -188,10 +333,13 @@
 }
 
 .loadingText {
-  margin-top: 1.5rem;
-  font-size: 1.3rem;
-  color: var(--primary-color);
-  font-weight: 500;
+  margin-top: 1.8rem;
+  font-size: 1.4rem;
+  background-image: var(--gradient-1);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 600;
   animation: pulse 1.5s infinite;
 }
 
@@ -213,7 +361,7 @@
   }
   
   .dashboardContainer h1 {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
   
   .dashboardInfo li {
@@ -225,13 +373,13 @@
     margin-bottom: 1rem;
     margin-right: 0;
     width: 100%;
-    height: 150px;
+    height: 180px;
   }
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -240,12 +388,13 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary-light);
+  background: linear-gradient(to bottom, var(--primary-light), var(--secondary-color));
   border-radius: 10px;
+  border: 2px solid #f1f1f1;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-color);
+  background: var(--gradient-1);
 }
 
 /* Additional styles for the dashboard structure */
@@ -257,35 +406,57 @@
 .dashboardInfo h2 {
   position: relative;
   display: inline-block;
-  margin-left: 10px;
+  margin-left: 15px;
 }
 
 .dashboardInfo h2::before {
   content: '';
   position: absolute;
-  left: -10px;
+  left: -15px;
   top: 50%;
   transform: translateY(-50%);
-  width: 4px;
-  height: 20px;
-  background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
-  border-radius: 2px;
+  width: 6px;
+  height: 25px;
+  background: var(--gradient-1);
+  border-radius: 3px;
+  box-shadow: 0 2px 8px rgba(74, 107, 255, 0.2);
+}
+
+.dashboardInfo > div:nth-child(2) h2::before {
+  background: var(--gradient-2);
 }
 
 /* Add subtle animations */
 @keyframes slideIn {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .dashboardContainer {
-  animation: slideIn 0.5s ease-out;
+  animation: slideIn 0.6s ease-out;
 }
 
 .dashboardInfo > div:nth-child(1) {
-  animation: slideIn 0.5s ease-out 0.1s backwards;
+  animation: slideIn 0.6s ease-out 0.2s backwards;
 }
 
 .dashboardInfo > div:nth-child(2) {
-  animation: slideIn 0.5s ease-out 0.2s backwards;
+  animation: slideIn 0.6s ease-out 0.4s backwards;
+}
+
+/* Add a subtle hover effect to the entire card */
+.dashboardInfo > div:hover h2::before {
+  height: 35px;
+  transition: var(--transition);
+}
+
+/* Add a glowing effect to the dashboard container on load */
+@keyframes glow {
+  0% { box-shadow: 0 0 0 rgba(74, 107, 255, 0); }
+  50% { box-shadow: 0 0 30px rgba(74, 107, 255, 0.1); }
+  100% { box-shadow: 0 0 0 rgba(74, 107, 255, 0); }
+}
+
+.dashboardInfo > div {
+  animation: glow 3s ease-in-out infinite;
 }
