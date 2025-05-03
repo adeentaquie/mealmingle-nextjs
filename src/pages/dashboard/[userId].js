@@ -1,58 +1,238 @@
-import React from "react";
+import React, { useState } from "react";
+import Head from "next/head";
 import styles from "@/styles/Dashboard.module.css"; // CSS styles for the dashboard
+import Link from "next/link";
 
 const Dashboard = ({ dashboardData, errorMessage }) => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
   if (errorMessage) {
-    return <div>{errorMessage}</div>;
+    return (
+      <>
+        <Head>
+          <title>Error - MealMingle Dashboard</title>
+        </Head>
+        <div className={styles.errorMessage}>{errorMessage}</div>
+      </>
+    );
   }
 
   return (
-    <div className={styles.dashboardContainer}>
-      <h1>Welcome, {dashboardData.name}!</h1>
+    <>
+      <Head>
+        <title>{dashboardData.name}'s Dashboard - MealMingle</title>
+      </Head>
+      <div className={styles.dashboardWrapper}>
+        {/* Overlay for mobile when sidebar is open */}
+        {sidebarOpen && (
+          <div 
+            className={styles.overlay} 
+            onClick={toggleSidebar}
+          ></div>
+        )}
 
-      <div className={styles.dashboardInfo}>
-        <div>
-          <h2>Your Meals Shared: {dashboardData.mealsShared}</h2>
-          <ul>
-            {dashboardData.sharedMeals.length > 0 ? (
-              dashboardData.sharedMeals.map((meal) => (
-                <li key={meal._id}>
-                  <img
-                    src={`http://localhost:3000/${meal.image}`} // Assuming backend serves static files
-                    alt={meal.title}
-                    width="60"
-                  />
-                  <a href={`/meals/${meal.slug}`}>{meal.title}</a>
-                </li>
-              ))
-            ) : (
-              <p>No shared meals found.</p>
-            )}
-          </ul>
-        </div>
+        {/* Sidebar */}
+        <aside className={`${styles.sidebar} ${sidebarOpen ? styles.sidebarOpen : ''}`}>
+          <div className={styles.sidebarHeader}>
+            <Link href="/home"><h2>MealMingle</h2></Link>
+            <button 
+              className={styles.closeSidebar}
+              onClick={toggleSidebar}
+              aria-label="Close sidebar menu"
+            >
+              &times;
+            </button>
+          </div>
 
-        <div>
-          <h2>Your Comments: {dashboardData.comments}</h2>
-          <ul className={styles.commentsList}>
-            {dashboardData.commentsList.length > 0 ? (
-              dashboardData.commentsList.map((comment, idx) => (
-                <li key={idx} className={styles.commentItem}>
-                  <div className={styles.commentContent}>
-                    <strong>On {comment.mealTitle}:</strong>
-                    <p>"{comment.commentText}"</p>
+          <div className={styles.userInfo}>
+            <div className={styles.avatar}>
+              {dashboardData.name.charAt(0)}
+            </div>
+            <span>{dashboardData.name}</span>
+          </div>
+
+          <nav className={styles.sidebarNav}>
+            <Link href={`/dashboard/${dashboardData.userId}`} className={`${styles.navLink} ${styles.active}`}>
+              <span className={styles.navIcon}>📊</span>
+              Dashboard
+            </Link>
+            <Link href={`/meals/${dashboardData.userId}`} className={styles.navLink}>
+              <span className={styles.navIcon}>🍽️</span>
+              All Meals 
+            </Link>
+            <Link href={`/meals/${dashboardData.userId}/share`} className={styles.navLink}>
+              <span className={styles.navIcon}>➕</span>
+              Add New Meal
+            </Link>
+            <Link href="/community" className={styles.navLink}>
+              <span className={styles.navIcon}>👥</span>
+              Community
+            </Link>
+            <div className={styles.navDivider}></div>
+            <Link href="/" className={styles.navLink}>
+              <span className={styles.navIcon}>🚪</span>
+              Logout
+            </Link>
+          </nav>
+        </aside>
+
+        {/* Main content area */}
+        <main className={styles.dashboardContainer}>
+          <div className={styles.dashboardHeader}>
+            <button 
+              className={styles.menuButton} 
+              onClick={toggleSidebar}
+              aria-label="Open menu"
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            <h1>Dashboard</h1>
+            <p className={styles.welcomeMessage}>Welcome back, <span>{dashboardData.name}</span>!</p>
+          </div>
+          
+          {/* Stats Overview */}
+          <div className={styles.statsGrid}>
+            <div className={styles.statCard}>
+              <div className={styles.statIcon}>🍽️</div>
+              <div className={styles.statInfo}>
+                <h3>Meals Shared</h3>
+                <p className={styles.statValue}>{dashboardData.mealsShared}</p>
+              </div>
+            </div>
+            
+            <div className={styles.statCard}>
+              <div className={styles.statIcon}>❤️</div>
+              <div className={styles.statInfo}>
+                <h3>Favorites</h3>
+                <p className={styles.statValue}>{dashboardData.favoritesCount}</p>
+              </div>
+            </div>
+            
+            <div className={styles.statCard}>
+              <div className={styles.statIcon}>💬</div>
+              <div className={styles.statInfo}>
+                <h3>Comments</h3>
+                <p className={styles.statValue}>{dashboardData.comments}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Dashboard Widgets Grid */}
+          <div className={styles.widgetsGrid}>
+            {/* Shared Meals Widget */}
+            <div className={styles.widget}>
+              <div className={styles.widgetHeader}>
+                <h2>Your Meals</h2>
+                <Link href={`/meals/${dashboardData.userId}/share`} className={styles.actionButton}>
+                  + Share New
+                </Link>
+              </div>
+              <div className={styles.widgetContent}>
+                {dashboardData.sharedMeals.length > 0 ? (
+                  <ul className={styles.mealsList}>
+                    {dashboardData.sharedMeals.map((meal) => (
+                      <li key={meal._id} className={styles.mealItem}>
+                        <img
+                          src={`/${meal.image}`}
+                          alt={meal.title}
+                          className={styles.mealImage}
+                        />
+                        <div className={styles.mealInfo}>
+                          <Link href={`/meals/${dashboardData.userId}/meal/${meal.slug}`}>
+                            {meal.title}
+                          </Link>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className={styles.emptyState}>
+                    <p>You haven't shared any meals yet</p>
+                    <Link href={`/meals/${dashboardData.userId}/share`} className={styles.emptyStateButton}>
+                      Share Your First Recipe
+                    </Link>
                   </div>
-                  <div className={styles.commentDate}>
-                    <em>Posted on {comment.createdAt}</em>
+                )}
+              </div>
+            </div>
+
+            {/* Favorite Meals Widget */}
+            <div className={styles.widget}>
+              <div className={styles.widgetHeader}>
+                <h2>Favorites</h2>
+                <Link href="/community" className={styles.actionButton}>
+                  Explore More
+                </Link>
+              </div>
+              <div className={styles.widgetContent}>
+                {dashboardData.favoriteMeals && dashboardData.favoriteMeals.length > 0 ? (
+                  <ul className={styles.mealsList}>
+                    {dashboardData.favoriteMeals.map((meal) => (
+                      <li key={meal._id} className={styles.mealItem}>
+                        <img
+                          src={`/${meal.image}`}
+                          alt={meal.title}
+                          className={styles.mealImage}
+                        />
+                        <div className={styles.mealInfo}>
+                          <Link href={`/meals/${dashboardData.userId}/meal/${meal.slug}`}>
+                            {meal.title}
+                          </Link>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className={styles.emptyState}>
+                    <p>No favorite meals yet</p>
+                    <Link href="/community" className={styles.emptyStateButton}>
+                      Discover Recipes
+                    </Link>
                   </div>
-                </li>
-              ))
-            ) : (
-              <p>No comments found.</p>
-            )}
-          </ul>
-        </div>
+                )}
+              </div>
+            </div>
+
+            {/* Comments Widget */}
+            <div className={styles.widget}>
+              <div className={styles.widgetHeader}>
+                <h2>Recent Comments</h2>
+              </div>
+              <div className={styles.widgetContent}>
+                {dashboardData.commentsList.length > 0 ? (
+                  <ul className={styles.commentsList}>
+                    {dashboardData.commentsList.map((comment, idx) => (
+                      <li key={idx} className={styles.commentItem}>
+                        <div className={styles.commentContent}>
+                          <strong>On {comment.mealTitle}:</strong>
+                          <p>"{comment.commentText}"</p>
+                        </div>
+                        <div className={styles.commentDate}>
+                          <span>{comment.createdAt}</span>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className={styles.emptyState}>
+                    <p>You haven't commented on any meals</p>
+                    <Link href="/community" className={styles.emptyStateButton}>
+                      Explore Community
+                    </Link>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </main>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -82,7 +262,11 @@ export async function getServerSideProps({ params }) {
 
     return {
       props: {
-        dashboardData: { ...data, commentsList }, // Pass the converted date data
+        dashboardData: { 
+          ...data, 
+          commentsList,
+          userId // Add userId to enable proper links
+        },
       },
     };
   } catch (error) {

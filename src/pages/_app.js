@@ -6,9 +6,19 @@ import { useRouter } from "next/router";
 
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter();
-  const noLayoutRoutes = ["/","/signup"]; // Don't show Layout on login page
+  
+  // Routes that should not use the main layout
+  const noLayoutRoutes = [
+    "/", 
+    "/signup",
+    // Don't show main layout on dashboard pages
+    "/dashboard/[userId]",
+    "/dashboard"
+  ];
 
-  const shouldRenderLayout = !noLayoutRoutes.includes(router.pathname);
+  // Check if current path should have layout
+  const shouldRenderLayout = !noLayoutRoutes.includes(router.pathname) && 
+                            !router.pathname.startsWith('/dashboard/');
 
   return (
     <Provider store={store}>

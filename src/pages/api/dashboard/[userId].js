@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 
   try {
     // Fetch user data from MongoDB using userId
-    const user = await User.findOne({ userId });
+    const user = await User.findOne({ userId: parseInt(userId) });
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
@@ -22,6 +22,11 @@ export default async function handler(req, res) {
     // Get all meals where the user has commented
     const mealsWithComments = await Meal.find({ "comments.userId": user._id })
       .select("title slug comments");
+
+    // Get favorite meals
+    const favoriteMeals = await Meal.find({
+      _id: { $in: user.favoritedMeals }
+    }).select('title slug image _id');
 
     // Extract comments and include meal title and slug
     const userComments = [];
@@ -43,8 +48,10 @@ export default async function handler(req, res) {
       name: user.name,
       mealsShared: sharedMeals.length,
       comments: userComments.length,
+      favoritesCount: favoriteMeals.length,
       sharedMeals,
       commentsList: userComments,
+      favoriteMeals
     });
   } catch (error) {
     console.error(error);

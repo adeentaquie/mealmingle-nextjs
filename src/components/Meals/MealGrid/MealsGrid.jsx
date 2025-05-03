@@ -2,7 +2,7 @@
 import MealItem from '@/components/Meals/MealItem/MealItem';
 import classes from './MealsGrid.module.css'; // Adjusted className
 
-export default function MealsGrid({ meals,userid }) {
+export default function MealsGrid({ meals, userid }) {
   return (
     <ul className={classes.meals}>
     {meals.map((meal) => (
@@ -14,6 +14,7 @@ export default function MealsGrid({ meals,userid }) {
           summary={meal.summary}
           creator={meal.creator}
           userid={userid}
+          _id={meal._id}
         />
       </li>
     ))}

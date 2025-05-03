@@ -11,6 +11,7 @@ const UserSchema = new mongoose.Schema(
     password: { type: String, required: true },
     mealsShared: { type: Number, default: 0 },
     comments: { type: Number, default: 0 },
+    favoritedMeals: [{ type: mongoose.Schema.Types.ObjectId, ref: "Meal" }], 
   },
   { timestamps: true }
 );
