@@ -14,7 +14,7 @@ Here're some of the project's best features:
 *   Signup
 *   HomePage Slideshow
 *   Community Page
-*   Personalized dashboard showing Meals Shared and Comments for blogging purposes(Server Side Rendering + Client Side Rendering)
+*   Personalized dashboard showing Meals Shared ,Favourite Meals , option to delete meals shared by you and Comments for blogging purposes(Server Side Rendering + Client Side Rendering)
 *   All Meals Page showing all the meals posted by the foodies community (Server Side Rendering)
 *   Share Your own Custom Meal using your Favourite recipe (CSR)
 *   Meal Detail Page ( SSG \[ getstaticprops() + getstaticpaths() \] )
