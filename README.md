@@ -1,40 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+<h1 align="center" id="title">MEAL MINGLE</h1>
 
-## Getting Started
+<p align="center"><img src="https://socialify.git.ci/adeentaquie/mealmingle-nextjs/image?language=1&amp;owner=1&amp;name=1&amp;stargazers=1&amp;theme=Light" alt="project-image"></p>
 
-First, run the development server:
+<p id="description">Meal Mingle is a web platform built using the Next-js that helps food lovers discover order and share meals. Users can easily browse different meal options order food and even share their recipes with the community. It allows people to find new recipes share their favorite dishes and enjoy the experience of meal discovery.</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+  
+  
+<h2>🧐 Features</h2>
+
+Here're some of the project's best features:
+
+*   Login
+*   Signup
+*   HomePage Slideshow
+*   Community Page
+*   Personalized dashboard showing Meals Shared and Comments for blogging purposes(Server Side Rendering + Client Side Rendering)
+*   All Meals Page showing all the meals posted by the foodies community (Server Side Rendering)
+*   Share Your own Custom Meal using your Favourite recipe (CSR)
+*   Meal Detail Page ( SSG \[ getstaticprops() + getstaticpaths() \] )
+*   Add comments under Meals That you like
+
+<h2>🛠️ Installation Steps:</h2>
+
+<p>1. go to your project directory</p>
+
+```
+cd-"project directory name"
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<p>2. install dependencies</p>
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```
+npm install
+```
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+<p>3. to start the project locally</p>
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+```
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+  
+  
+<h2>💻 Built with</h2>
 
-## Learn More
+Technologies used in the project:
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+*   Next-js Page Router
+*   React js
