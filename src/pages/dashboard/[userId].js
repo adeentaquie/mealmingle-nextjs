@@ -1,13 +1,37 @@
 import React, { useState } from "react";
 import Head from "next/head";
-import styles from "@/styles/Dashboard.module.css"; // CSS styles for the dashboard
+import styles from "@/styles/Dashboard.module.css"; 
 import Link from "next/link";
 
 const Dashboard = ({ dashboardData, errorMessage }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sharedMeals, setSharedMeals] = useState(dashboardData.sharedMeals);
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
+  };
+
+  const handleRemoveMeal = async (slug) => {
+    if (!confirm('Are you sure you want to remove this meal?')) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/meals/${dashboardData.userId}/${slug}/remove`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        // Remove the meal from the local state
+        setSharedMeals(prevMeals => prevMeals.filter(meal => meal.slug !== slug));
+      } else {
+        const data = await response.json();
+        alert(data.message || 'Failed to remove meal');
+      }
+    } catch (error) {
+      console.error('Error removing meal:', error);
+      alert('Failed to remove meal. Please try again.');
+    }
   };
 
   if (errorMessage) {
@@ -134,9 +158,9 @@ const Dashboard = ({ dashboardData, errorMessage }) => {
                 </Link>
               </div>
               <div className={styles.widgetContent}>
-                {dashboardData.sharedMeals.length > 0 ? (
+                {sharedMeals.length > 0 ? (
                   <ul className={styles.mealsList}>
-                    {dashboardData.sharedMeals.map((meal) => (
+                    {sharedMeals.map((meal) => (
                       <li key={meal._id} className={styles.mealItem}>
                         <img
                           src={`/${meal.image}`}
@@ -148,6 +172,13 @@ const Dashboard = ({ dashboardData, errorMessage }) => {
                             {meal.title}
                           </Link>
                         </div>
+                        <button
+                          className={styles.removeButton}
+                          aria-label="Remove meal"
+                          onClick={() => handleRemoveMeal(meal.slug)}
+                        >
+                          Remove
+                        </button>
                       </li>
                     ))}
                   </ul>
